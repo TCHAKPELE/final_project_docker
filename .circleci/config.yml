@@ -14,15 +14,9 @@ jobs:
     steps:
       - checkout
       - run: pip install -r requirements/dev.txt --user
-      - run:
-          name: Applying DBschema
-          command: | flask db init
-      - run:
-          name: Applying DBschema2
-          command: | flask db migrate
-      - run:
-          name: Applying DBschema3
-          command: | flask db upgrate
+      - run: flask db init
+      - run: flask db migrate
+      - run: flask db upgrate
        
 workflows:
   version: 2
