@@ -14,9 +14,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 
-          - v1-dependencies-{{ checksum "requirements/dev.txt" }}
-          - v1-dependencies-
+          key: v1-dependencies-{{ checksum "requirements/dev.txt" }}
       - run: pip install -r requirements/dev.txt --user
       - run:
           command: |
