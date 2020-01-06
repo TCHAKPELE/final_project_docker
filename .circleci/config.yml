@@ -13,54 +13,19 @@ jobs:
           POSTGRES_PASSWORD: ''
     steps:
       - checkout
-      - run: mkdir test-reports
+      - run: pip install -r requirements/dev.txt --user
       - run:
-          name: Download Selenium
-          command: |
-            curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+          name: Applying DBschema
+          command: | flask db init
       - run:
-          name: Start Selenium
-          command: |
-            java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
-          background: true
-      - restore_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
+          name: Applying DBschema2
+          command: | flask db migrate
       - run:
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            pip install -r requirements/dev.txt
-      - run:
-          name: setup Heroku
-          command: bash .circleci/setup-heroku.sh
-      - save_cache:
-          key: deps2-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
-          paths:
-            - 'venv'
-  install:
-	docker:
-	  - image: circleci/python:3.6.2-stretch-browsers
-        environment:
-          FLASK_CONFIG: testing
-          TEST_DATABASE_URL: postgresql://ubuntu@localhost/circle_test?sslmode=disable
-      - image: circleci/postgres:9.6.5-alpine-ram
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_DB: circle_test
-          POSTGRES_PASSWORD: ''
-	steps:
-		-run: pip install -r requirements/dev.txt --user
-		-run: flask db init
-		-run: flask db migrate
-		-run: flask db upgrade
-
-	
-
+          name: Applying DBschema3
+          command: | flask db upgrate
+       
 workflows:
   version: 2
   build-test-and-install:
     jobs:
-      - install
-      - build:
-          requires:
-            - install
+      - build
