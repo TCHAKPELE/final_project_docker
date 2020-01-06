@@ -13,6 +13,8 @@ jobs:
           POSTGRES_PASSWORD: ''
     steps:
       - checkout
+	  - restore_cache:
+          key: deps2-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
       - run: pip install -r requirements/dev.txt --user
       - run:
           command: flask db upgrate
