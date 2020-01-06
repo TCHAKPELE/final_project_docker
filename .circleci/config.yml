@@ -14,10 +14,14 @@ jobs:
     steps:
       - checkout
       - run: pip install -r requirements/dev.txt --user
-      - run: flask db init
-      - run: flask db migrate
-      - run: flask db upgrate
-       
+      - run:
+          name: config db
+          command: |
+            flask db upgrate
+        environment:
+            CONDUIT_SECRET: 'something-really-secret'
+            FLASK_APP: /path/to/autoapp.py
+            FLASK_DEBUG: 1
 workflows:
   version: 2
   build-test-and-install:
