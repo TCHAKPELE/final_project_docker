@@ -1,8 +1,13 @@
 FROM python:3.6.2
 
-RUN pip install Flask==0.11.1
+
+RUN pip install -r requirements/dev.txt
+
+RUN flask db upgrade
+
+RUN flask test
 
 WORKDIR /app
 COPY app /app
 
-CMD ["python", "service.py"]
+CMD ["gunicorn", "autoapp:app -b 0.0.0.0:$PORT -w 3"]
