@@ -30,7 +30,7 @@ jobs:
             CONDUIT_SECRET: 'something-really-secret'
             FLASK_APP: autoapp.py
             FLASK_DEBUG: 1
-            DATABASE_URL: postgresql://myUsr:somePwd@localhost:5432/myUsr
+            DATABASE_URL: postgresql://Ubuntu:somePwd@localhost:5432/postgres
       - save_cache:
           key: v1-dependencies-{{ checksum "requirements/dev.txt" }}-{{ checksum "requirements/prod.txt" }}
           paths:
