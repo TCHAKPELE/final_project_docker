@@ -57,3 +57,4 @@ workflows:
       - build
       - install:
           requires:
+            - build
