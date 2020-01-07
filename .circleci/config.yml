@@ -14,10 +14,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: 
-            - v1-dependencies-{{ checksum "requirements/dev.txt" }}
-            - v1-dependencies-
-      - run: pip install -r requirements/dev.txt 
+          key: v1-dependencies-{{ checksum "requirements/dev.txt" }}
+            
+      - run:
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/dev.txt
       - run:
           command: |
             flask db upgrate
