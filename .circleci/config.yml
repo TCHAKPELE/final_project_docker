@@ -29,7 +29,7 @@ jobs:
             flask test
           environment:
             CONDUIT_SECRET: 'something-really-secret'
-            FLASK_APP: /home/circleci/repo/autoapp.py
+            FLASK_APP: repo/autoapp.py
             FLASK_DEBUG: 1
       
 workflows:
