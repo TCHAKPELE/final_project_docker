@@ -20,10 +20,10 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements/dev.txt
-            pip install flask==0.12.2 
+            pip install -r requirements/dev.txt 
       - run:
           command: |
+            . venv/bin/activate
             flask db upgrate
             flask test
           environment:
