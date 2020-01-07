@@ -11,7 +11,7 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: circle_test
           POSTGRES_PASSWORD: ''
-    working_directory: ~/repo
+    working_directory: /home
     steps:
       - checkout
       - restore_cache:
@@ -29,7 +29,7 @@ jobs:
             flask test
           environment:
             CONDUIT_SECRET: 'something-really-secret'
-            FLASK_APP: /repo/autoapp.py
+            FLASK_APP: autoapp.py
             FLASK_DEBUG: 1
       
 workflows:
