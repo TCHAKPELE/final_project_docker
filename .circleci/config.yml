@@ -21,6 +21,11 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements/dev.txt 
+	  - save_cache:
+          key: v1-dependencies-{{ checksum "requirements/dev.txt" }}
+          paths:
+            - 'venv'
+
       
   install:
     docker:
@@ -37,9 +42,6 @@ jobs:
       - checkout
       - restore_cache:
           key: v1-dependencies-{{ checksum "requirements/dev.txt" }}
-	  - run:
-          command: |
-            pip install -r requirements/dev.txt 
       - run:
           command: |
             flask db upgrade
