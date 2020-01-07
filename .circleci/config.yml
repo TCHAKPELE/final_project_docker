@@ -18,6 +18,8 @@ jobs:
       - run: pip install -r requirements/dev.txt --user
       - run:
           command: |
+            python3 -m venv venv
+            . venv/bin/activate
             flask db upgrate
             flask test
           environment:
