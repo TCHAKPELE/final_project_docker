@@ -55,6 +55,7 @@ jobs:
             docker tag app $DOCKER_HUB_USER_ID/my-awesome-ci-expr:latest
             docker push $DOCKER_HUB_USER_ID/my-awesome-ci-expr:$CIRCLE_BUILD_NUM
             docker push $DOCKER_HUB_USER_ID/my-awesome-ci-expr:latest
+            pip install --upgrade pip
 
   deploy-heroku:
     docker:
