@@ -24,7 +24,7 @@ jobs:
       - run:
           command: |
             . venv/bin/activate
-            flask db upgrate
+            flask db upgrade
             flask test
           environment:
             CONDUIT_SECRET: 'something-really-secret'
